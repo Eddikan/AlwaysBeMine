@@ -16,7 +16,7 @@ const MarqueeProposal = () => {
     "You make even ordinary moments feel extraordinary.",
     "You make my world brighter and happier.",
     "You're the dream I never want to wake up from.",
-    "Will you be the love of my life forever?",
+    "Will you be the love of my life ?",
   ];
 
   useEffect(() => {

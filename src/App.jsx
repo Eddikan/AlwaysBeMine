@@ -39,7 +39,7 @@ import nogif7 from "./assets/GifData/No/RejectNo.gif";
 import nogif8 from "./assets/GifData/No/breakRej7.gif";
 
 //! yes - Music Importing
-import yesmusic1 from "./assets/AudioTracks/Love_LoveMeLikeYouDo.mp3";
+import yesmusic1 from "./assets/AudioTracks/dandelions_chorus.mp3";
 import yesmusic2 from "./assets/AudioTracks/Love_EDPerfect.mp3";
 import yesmusic3 from "./assets/AudioTracks/Love_Nadaaniyan.mp3";
 import yesmusic4 from "./assets/AudioTracks/Love_JoTumMereHo.mp3";
@@ -137,14 +137,14 @@ export default function Page() {
 
   // This ensures the "Yes" gif keeps restarting and playing infinitely
   useEffect(() => {
-    if (gifRef.current && yesPressed && noCount>3) {
+    if (gifRef.current && yesPressed) {
       gifRef.current.src = YesGifs[currentGifIndex];
     }
   }, [yesPressed, currentGifIndex]);
 
   // Use effect to change the Yes gif every 5 seconds
   useEffect(() => {
-    if (yesPressed && noCount>3) {
+    if (yesPressed) {
       const intervalId = setInterval(() => {
         setCurrentGifIndex((prevIndex) => (prevIndex + 1) % YesGifs.length);
       }, 5000); // Change gif every 5 seconds
@@ -179,13 +179,8 @@ export default function Page() {
   };
   
   const handleYesClick = () => {
-    if(!popupShown){ // Only for Swal Fire Popup
-      setYesPressed(true);
-    }
-    if(noCount>3){
-      setYesPressed(true);
-      playMusic(YesMusic[0], YesMusic); // Play the first "Yes" music by default
-    }
+    setYesPressed(true);
+    playMusic(YesMusic[0], YesMusic); // Play the first "Yes" music by default
   };
   
   const playMusic = (url, musicArray) => {
@@ -245,53 +240,6 @@ export default function Page() {
   };
 
   useEffect(() => {
-    if (yesPressed && noCount < 4 && !popupShown) {
-      Swal.fire({
-        title: "I love you sooo Much!!!❤️, You’ve stolen my heart completely!!! 🥰💖 But itni pyaari ladki aur itni jaldi haan? Thoda aur nakhre karke mujhe tarpaao na! 🥰✨",
-        showClass: {
-          popup: `
-            animate__animated
-            animate__fadeInUp
-            animate__faster
-          `
-        },
-        width: 700,
-        padding: "2em",
-        color: "#716add",
-        background: `#fff url(${swalbg})`,
-        backdrop: `
-          rgba(0,0,123,0.2)
-          url(${loveu})
-          right
-          no-repeat
-        `,
-      });
-      setPopupShown(true);
-      setYesPressed(false);
-    }
-  }, [yesPressed, noCount, popupShown]);
-  
-  useEffect(() => {
-    if (yesPressed && noCount > 3 && !yespopupShown) {
-      Swal.fire({
-        title: "I love you so much!! ❤️ You are my everything, my joy, my forever. Every moment with you is a memory I’ll cherish forever, and my heart beats only for you.</br> Will you be the love of my life forever?",
-        width: 800,
-        padding: "2em",
-        color: "#716add",
-        background: `#fff url(${swalbg})`,
-        backdrop: `
-          rgba(0,0,123,0.7)
-          url(${purposerose})
-          right
-          no-repeat
-        `,
-      });
-      setYesPopupShown(true);
-      setYesPressed(true);
-    }
-  }, [yesPressed, noCount, yespopupShown]);
-
-  useEffect(() => {
     if (noCount == 25) {
       Swal.fire({
         title: "My love for you is endless, like the stars in the sky—shining for you every night, even if you don’t always notice. 🌟 I’ll wait patiently, proving every day that you’re my everything. ❤️ Please press ‘Yes’ and let’s make this a forever story. 🥰✨<br/>'True love never gives up; it grows stronger with time.'",
@@ -319,7 +267,7 @@ export default function Page() {
       {noCount > 16 && noCount < 25 && yesPressed == false && <MouseStealing />}
 
       <div className="overflow-hidden flex flex-col items-center justify-center pt-4 h-screen -mt-16 selection:bg-rose-600 selection:text-white text-zinc-900">
-        {yesPressed && noCount>3 ? (
+        {yesPressed ? (
           <>
             <img
               ref={gifRef}
@@ -401,7 +349,7 @@ const Footer = () => {
       <span role="img" aria-label="heart">
         ❤️
       </span>
-      {" "}by Ujjwal
+      {" "}by Eddy
     </a>
   );
 };
